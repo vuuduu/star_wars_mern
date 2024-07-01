@@ -1,3 +1,4 @@
+const {MongoClient, ObjectId} = require('mongodb');
 const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
@@ -16,55 +17,50 @@ app.get('/api/planets', async (req, res) => {
     try {
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const data = await db.collection()
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
-        res.json(jsonObj);
+        const collection = db.collection(planetCollection);
+        const planets = await collection.find({}).toArray();
+        res.json(planets);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        res.status(500).send("Error retrieving planets");
     }
 });
 
 app.get('/api/characters', async (req, res) => {
     try {
-        // Console log the entire request object
-        console.log(req);
-
-        // const data = await fs.readFile('../data/socks.json', 'utf8');
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
-        res.json(jsonObj);
+        const client = await MongoClient.connect(mongoURL);
+        const db = client.db(mongoDB);
+        const collection = db.collection(characterCollection);
+        const characters = await collection.find({}).toArray();
+        res.json(characters);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        res.status(500).send("Error getting characters");
     }
 });
 
 app.get('/api/films', async (req, res) => {
     try {
-        // Console log the entire request object
-        console.log(req);
-
-        // const data = await fs.readFile('../data/socks.json', 'utf8');
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
-        res.json(jsonObj);
+        const client = await MongoClient.connect(mongoURL);
+        const db = client.db(mongoDB);
+        const collection = db.collection(filmCollection);
+        const films = await collection.find({}).toArray();
+        res.json(films);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        res.status(500).send("Error getting films");
     }
 });
 
 app.get('/api/characters/:id', async (req, res) => {
-    try {
-        // Console log the entire request object
-        console.log(req);
+    const { id } = req.params;
 
-        // const data = await fs.readFile('../data/socks.json', 'utf8');
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
-        res.json(jsonObj);
+    try {
+        const client = await MongoClient.connect(mongoURL);
+        const db = client.db(mongoDB);
+        const collection = db.collection(characterCollection);
+        const characters = await collection.find({id: Number(id)}).toArray();
+        res.json(characters);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Hmmm, something smells... No socks for you! ☹");
