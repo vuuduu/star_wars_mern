@@ -17,9 +17,9 @@ app.get('/api/planets', async (req, res) => {
     try {
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(planetCollection);
-        const planets = await collection.find({}).toArray();
-        res.json(planets);
+        const planets = db.collection(planetCollection);
+        const planetData = await planets.find({}).toArray();
+        res.json(planetData);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error retrieving planets");
@@ -144,12 +144,16 @@ app.get('/api/characters/:id/films', async (req, res) => {
 
 app.get('/api/planets/:id/films', async (req, res) => {
     try {
-        // Console log the entire request object
-        console.log(req);
+        // create connection
+        const client = await MongoClient.connect(mongoURL);
+        const db = client.db(mongoDB);
+        const films = db.collection(characterCollection);
 
-        // const data = await fs.readFile('../data/socks.json', 'utf8');
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
+        // Get Data
+        const planetid = Number(req.params.id);
+        const characterData = await characters.find({homeworld: planetid}).toArray();
+
+        res.json(characterData);
         res.json(jsonObj);
     } catch (err) {
         console.error("Error:", err);
@@ -159,13 +163,16 @@ app.get('/api/planets/:id/films', async (req, res) => {
 
 app.get('/api/planets/:id/characters', async (req, res) => {
     try {
-        // Console log the entire request object
-        console.log(req);
+        // create connection
+        const client = await MongoClient.connect(mongoURL);
+        const db = client.db(mongoDB);
+        const characters = db.collection(characterCollection);
 
-        // const data = await fs.readFile('../data/socks.json', 'utf8');
-        // const jsonObj = JSON.parse("hello");
-        const jsonObj = {'name':'David'}
-        res.json(jsonObj);
+        // Get Data
+        const planetid = Number(req.params.id);
+        const characterData = await characters.find({homeworld: planetid}).toArray();
+
+        res.json(characterData);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Hmmm, something smells... No socks for you! ☹");
