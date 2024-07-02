@@ -15,10 +15,13 @@ const planetCollection = 'planets';
 const filmsCharactersCollection = 'films_characters';
 const filmsPlanetsCollection = 'films_planets';
 
-app.get('/api/planets', async (req, res) => {
+app.get('/api/planets', async (_req, res) => {
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
+        
+        // get all planets data
         const planets = db.collection(planetCollection);
         const planetData = await planets.find({}).toArray();
         res.json(planetData);
@@ -30,11 +33,14 @@ app.get('/api/planets', async (req, res) => {
 
 app.get('/api/characters', async (req, res) => {
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(characterCollection);
-        const characters = await collection.find({}).toArray();
-        res.json(characters);
+
+        // get all characters data
+        const characters = db.collection(characterCollection);
+        const characterData = await characters.find({}).toArray();
+        res.json(characterData);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error getting characters");
@@ -43,11 +49,14 @@ app.get('/api/characters', async (req, res) => {
 
 app.get('/api/films', async (req, res) => {
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(filmCollection);
-        const films = await collection.find({}).toArray();
-        res.json(films);
+
+        // get all films data
+        const films = db.collection(filmCollection);
+        const filmData = await films.find({}).toArray();
+        res.json(filmData);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Error getting films");
@@ -58,14 +67,17 @@ app.get('/api/characters/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(characterCollection);
-        const characters = await collection.find({id: Number(id)}).toArray();
-        res.json(characters);
+
+        // get specific character data
+        const characters = db.collection(characterCollection);
+        const characterData = await characters.findOne({id: Number(id)});
+        res.json(characterData);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        res.status(500).send("No Character with that Id");
     }
 });
 
@@ -73,11 +85,14 @@ app.get('/api/films/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(filmCollection);
-        const films = await collection.find({id: Number(id)}).toArray();
-        res.json(films);
+
+        // get specific film data
+        const films = db.collection(filmCollection);
+        const filmData = await films.findOne({id: Number(id)});
+        res.json(filmData);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("No films with that ID");
@@ -88,14 +103,17 @@ app.get('/api/planets/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
+        // connect to mongo client
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(planetCollection);
-        const planets = await collection.find({id: Number(id)}).toArray();
-        res.json(planets);
+
+        // get specific planet data
+        const planets = db.collection(planetCollection);
+        const planetData = await planets.findOne({id: Number(id)});
+        res.json(planetData);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("No films with that ID");
+        res.status(500).send("No Planet with that ID");
     }
 });
 
@@ -105,22 +123,19 @@ app.get('/api/films/:id/characters', async (req, res) => {
     try {
         const client = await MongoClient.connect(mongoURL);
         const db = client.db(mongoDB);
-        const collection = db.collection(filmsCharactersCollection);
-        const filmCharIds = await collection.find({film_id: Number(id)}).toArray();
-        const charCollection = db.collection(characterCollection);
+        const characters = db.collection(characterCollection);
+        const filmsChars = db.collection(filmsCharactersCollection);
+        const filmCharIds = await filmsChars.find({film_id: Number(id)}).toArray();
 
-        const charIds = filmCharIds.map(item => item.character_id);
-        
-        
         // const filmCharacters = filmCharIds.map(item => {
         //     return {
         //         character: charCollection.find({id: item.character_id})
         //     }
         // })
         // console.log(charIds);
-        const characters = [];
-        for (const charId of charIds) {
-            const character = await charCollection.findOne({ id : charId});
+        const characterData = [];
+        for (const character of characters) {
+            const characterObj = await .findOne({ id : charId});
             characters.push(character);
         }
         console.log(characters);
