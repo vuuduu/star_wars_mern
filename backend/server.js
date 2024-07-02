@@ -201,8 +201,6 @@ app.get('/api/characters/:id/films', async (req, res) => {
         const filmsChars = db.collection(filmsCharactersCollection);
         const filmsCharsId = await filmsChars.find({ character_id: Number(id) }).toArray();
 
-        console.log(filmsCharsId);
-
         // get list of films of specifc characters id
         const filmsData = []
         for (const filmId of filmsCharsId) {

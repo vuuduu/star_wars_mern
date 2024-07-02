@@ -73,7 +73,7 @@ const Planet = () => {
                         <li><Link to={`api/characters/${character.id}`}>{character.name}</Link></li>
                     )} */}
                     {characterList?.map(character =>
-                        <li><a onClick={() => window.location = `/character/${character?.id}`}>{character?.name}</a></li>
+                        <li key={character.id}><a onClick={() => window.location = `/character/${character?.id}`}>{character?.name}</a></li>
                     )}
                 </ul>
             </section>
@@ -82,7 +82,7 @@ const Planet = () => {
                 <h2>Films appeared in</h2>
                 <ul>
                     {filmList?.map(film =>
-                        <li><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
+                        <li key={film.id}><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
                     )}
                 </ul>
             </section>

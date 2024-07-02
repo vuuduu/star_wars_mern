@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 const Character = () => {
     const { characterid } = useParams();
@@ -38,7 +38,7 @@ const Character = () => {
                 <h2>Films appeared in</h2>
                 <ul>
                     {films?.map((film) =>
-                        <li><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
+                        <li key={film?.id}><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
                     )}
                 </ul>
             </section>
