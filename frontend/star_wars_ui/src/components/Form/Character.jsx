@@ -32,13 +32,17 @@ const Character = () => {
             </section>
             <section id="planets">
                 <h2>Homeworld</h2>
-                <p><span id="homeworld"><a onClick={() => window.location = `/planet/${homeworld?.id}`}>{homeworld?.name}</a></span></p>
+                <p><span id="homeworld">
+                    <Link to={`/planet/${homeworld?.id}`}>{homeworld?.name}</Link>
+                </span></p>
             </section>
             <section id="films">
                 <h2>Films appeared in</h2>
                 <ul>
                     {films?.map((film) =>
-                        <li key={film?.id}><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
+                        <li key={film?.id}>
+                            <Link to={`/film/${film?.id}`}>{film?.title}</Link>
+                        </li>
                     )}
                 </ul>
             </section>

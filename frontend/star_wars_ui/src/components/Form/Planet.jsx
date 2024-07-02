@@ -69,11 +69,8 @@ const Planet = () => {
             <section id="characters">
                 <h2>Characters appeared in</h2>
                 <ul>
-                    {/* {characterList?.map(character =>
-                        <li><Link to={`api/characters/${character.id}`}>{character.name}</Link></li>
-                    )} */}
                     {characterList?.map(character =>
-                        <li key={character.id}><a onClick={() => window.location = `/character/${character?.id}`}>{character?.name}</a></li>
+                        <li key={character.id}><Link to={`/character/${character?.id}`}>{character?.name}</Link></li>
                     )}
                 </ul>
             </section>
@@ -82,7 +79,7 @@ const Planet = () => {
                 <h2>Films appeared in</h2>
                 <ul>
                     {filmList?.map(film =>
-                        <li key={film.id}><a onClick={() => window.location = `/film/${film?.id}`}>{film?.title}</a></li>
+                        <li key={film.id}><Link to={`/film/${film?.id}`}>{film?.title}</Link></li>
                     )}
                 </ul>
             </section>

@@ -8,7 +8,8 @@ const PORT = 3000;
 
 dotenv.config();
 app.use(cors());
-app.use(express.json());
+// app.use(express.json());
+app.use(express.static('./public'));
 
 const mongoURL = process.env.MONGO_URL;
 const mongoDB = process.env.MONGO_DB;

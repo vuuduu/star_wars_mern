@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 const Film = () => {
     const { filmid } = useParams();
@@ -36,7 +36,7 @@ const Film = () => {
                 <h2>Characters in Film</h2>
                 <ul>
                     {characters?.map((character) =>
-                        <li><a onClick={() => window.location = `/character/${character?.id}`}>{character.name}</a></li>
+                        <li key={character.id}><Link to={`/character/${character?.id}`}>{character.name}</Link></li>
                     )}
                 </ul>
             </section>
@@ -44,7 +44,7 @@ const Film = () => {
                 <h2>Planets in Film</h2>
                 <ul>
                     {planets?.map((planet) =>
-                        <li key={planet?.id}><a onClick={() => window.location = `/planet/${planet?.id}`}>{planet?.name}</a></li>
+                        <li key={planet?.id}><Link to={`/planet/${planet?.id}`}>{planet?.name}</Link></li>
                     )}
                 </ul>
             </section>
