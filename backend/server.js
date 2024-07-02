@@ -1,10 +1,12 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const app = express();
 const PORT = 3000;
 
 dotenv.config();
+app.use(cors());
 app.use(express.json());
 
 const mongoURL = process.env.MONGO_URL;
@@ -160,11 +162,11 @@ app.get('/api/films/:id/planets', async (req, res) => {
         const filmPlanetIds = await filmsPlanets.find({ film_id: Number(id) }).toArray();
 
         // get list of planets of specific films id
-        // const planetData = [];
-        // for (const planetId of filmPlanetIds) {
-        //     const planetObj = await planets.findOne({ id: planetId.planet_id });
-        //     planetData.push(planetObj);
-        // }
+        const planetData = [];
+        for (const planetId of filmPlanetIds) {
+            const planetObj = await planets.findOne({ id: planetId.planet_id });
+            planetData.push(planetObj);
+        }
 
         // Teting Map - Problems
         // console.log(filmPlanetIds);
