@@ -41,12 +41,8 @@ const Planet = () => {
 
     async function fetchFilms() {
         const filmurl = `${baseurl}/planets/${planetid}/films`;
-        const fetchFilmList = await fetch(filmurl).then(res => res.json())
+        const fetchFilmList = await fetch(filmurl).then(res => res.json());
 
-        // fetchFilmList.map(film => { return `<li><Link to="/film/${film.id}">${film.title}</Link></li>`; })
-        // fetchFilmList.map(film => {
-        //     `<li><a href="/films/${film.id}">${film.name}</li>`
-        // })
         setFilmList(fetchFilmList);
     }
 

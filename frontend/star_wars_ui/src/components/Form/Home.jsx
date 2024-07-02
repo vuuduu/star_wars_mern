@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     const [characters, setCharacters] = useState([]);
-    // const [charactersList, setCharactersList] = useState([]);
+    const [charactersList, setCharactersList] = useState([]);
 
     useEffect(() => {
         getCharacters();
@@ -28,28 +28,16 @@ const Home = () => {
         const searchString = document.querySelector("#searchString").value;
         const re = new RegExp(searchString, "i");
         const matchingCharacters = characters.filter(character => re.test(character.name));
-        console.log(matchingCharacters);
+
         renderCharacters(matchingCharacters);
     }
 
     const renderCharacters = async characters => {
-        // const divs = characters.map(character => {
-        //     const el = document.createElement('div');
-        //     el.addEventListener('click', () => goToCharacterPage(character.id));
-        //     el.textContent = character.name;
-        //     return el;
-        // })
-        // charactersList.replaceChildren(...divs)
-        console.log(characters); // TEST
-
         const characterDivs = await Promise.all(characters.map(character =>
             <div key={character.id}><Link to={`/character/${character.id}`}>{character.name}</Link></div>
         ));
-        setCharacters(characterDivs);
+        setCharactersList(characterDivs);
     }
-
-    // const goToCharacterPage = id => window.location = `/character/${id}`
-    const goToCharacterPage = id => { <Link to={`/character/${id}`}></Link> }
 
     return (
         <>
@@ -60,7 +48,7 @@ const Home = () => {
                 <input id="searchString" onInput={filterCharacters} autoComplete="off" />
             </div>
             <section id="charactersList">
-                {characters}
+                {charactersList}
             </section>
         </>
     )
