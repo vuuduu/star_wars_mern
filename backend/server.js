@@ -159,14 +159,28 @@ app.get('/api/films/:id/planets', async (req, res) => {
         const filmsPlanets = db.collection(filmsPlanetsCollection);
         const filmPlanetIds = await filmsPlanets.find({ film_id: Number(id) }).toArray();
 
-        // const planIds = filmPlanIds.map(item => item.planet_id);
-
         // get list of planets of specific films id
-        const planetData = [];
-        for (const planetId of filmPlanetIds) {
-            const planetObj = await planets.findOne({ id: planetId.planet_id });
-            planetData.push(planetObj);
-        }
+        // const planetData = [];
+        // for (const planetId of filmPlanetIds) {
+        //     const planetObj = await planets.findOne({ id: planetId.planet_id });
+        //     planetData.push(planetObj);
+        // }
+
+        // Teting Map - Problems
+        // console.log(filmPlanetIds);
+        // const planetData = filmPlanetIds.map(async ids => {
+        //     const planetid = ids.planet_id;
+        //     return await planets.findOne({ planet_id: planetid });
+        // });
+
+        // Testing Map - Solutions
+        // const planetData = await Promise.all(filmPlanetIds.map(async ids => {
+        //     const planetid = ids.planet_id;
+        //     const planetObj = await planets.findOne({ id: planetid });
+        //     console.log(planetid, planetObj);
+        //     return planetObj;
+        // }));
+
         res.json(planetData);
     } catch (err) {
         console.error("Error:", err);
