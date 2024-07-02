@@ -216,6 +216,19 @@ app.get('/api/characters/:id/films', async (req, res) => {
     }
 });
 
+app.get('/api/characters/:id/planet', async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Abstract base URI to .env
+        const character = await fetch(`http://localhost:3000/api/characters/${id}`).then(res => res.json());
+        const planet = await fetch(`http://localhost:3000/api/planets/${character.homeworld}`).then(res => res.json());
+        res.json(planet);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Can't get a list of films with character id: " + id);
+    }
+});
+
 app.get('/api/planets/:id/films', async (req, res) => {
     const { id } = req.params;
     try {
