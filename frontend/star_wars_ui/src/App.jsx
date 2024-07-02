@@ -7,6 +7,8 @@ import Planet from './components/Form/Planet';
 import Film from './components/Form/Film';
 import NoPage from './components/Form/NoPage';
 
+import './App.css'
+
 function App() {
 
   return (
