@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 const Home = () => {
     const [characters, setCharacters] = useState([]);
 
-
     useEffect(() => {
         getCharacters();
     }, []);
