@@ -42,8 +42,8 @@ function App() {
     })
     charactersList.replaceChildren(...divs)
   }
-
-  const goToCharacterPage = id => window.location = `/character.html?id=${id}`
+  
+  const goToCharacterPage = id => window.location = `/character/${id}`
 
   return (
     <>
