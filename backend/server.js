@@ -162,11 +162,11 @@ app.get('/api/films/:id/planets', async (req, res) => {
         const filmPlanetIds = await filmsPlanets.find({ film_id: Number(id) }).toArray();
 
         // get list of planets of specific films id
-        // const planetData = [];
-        // for (const planetId of filmPlanetIds) {
-        //     const planetObj = await planets.findOne({ id: planetId.planet_id });
-        //     planetData.push(planetObj);
-        // }
+        const planetData = [];
+        for (const planetId of filmPlanetIds) {
+            const planetObj = await planets.findOne({ id: planetId.planet_id });
+            planetData.push(planetObj);
+        }
 
         // Teting Map - Problems
         // console.log(filmPlanetIds);
