@@ -44,7 +44,7 @@ const Film = () => {
                 <h2>Planets in Film</h2>
                 <ul>
                     {planets?.map((planet) =>
-                        <li><a onClick={() => window.location = `/planet/${planet?.id}`}>{planet?.name}</a></li>
+                        <li key={planet?.id}><a onClick={() => window.location = `/planet/${planet?.id}`}>{planet?.name}</a></li>
                     )}
                 </ul>
             </section>
